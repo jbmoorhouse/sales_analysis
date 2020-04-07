@@ -70,3 +70,18 @@ class SalesPipeline:
         average_discount_rate.name = "discount_rate_avg"
         
         return average_discount_rate
+
+    # ----------------------------------------------------------------------
+    # Public methods
+    
+    def summary(self):        
+        summary_df = pd.concat([
+            self._customer_count(),
+            self._total_discount(),
+            self._item_count(),
+            self._mean_order_total(),
+            self._mean_discount_rate(),
+        ], axis=1)
+        
+        summary_df.index = pd.to_datetime(summary_df.index)
+        return summary_df
