@@ -9,9 +9,9 @@ class SalesPipeline:
 
     def __init__(self, **data):
         for k, v in data.items():
-            setattr(self, k, v)
+            setattr(self, k.split('.')[0], v)
             
-         self.merged_order_data = self._merge_order_data()
+        self.merged_order_data = self._merge_order_data()
 
     # ----------------------------------------------------------------------
     # formatting methods 
@@ -21,20 +21,21 @@ class SalesPipeline:
         return orders
     
     def _merge_order_data(self):
-        orders = self._format_orders(self._orders)
-        order_lines = self._order_lines
+        orders = self._format_orders(self.orders)
+        order_lines = self.order_lines
         
         return order_lines.merge(
             orders, 
             how="left", 
             left_on="order_id", 
             right_on="id",
+        )
 
     # ----------------------------------------------------------------------
     # statistics/calculation methods
 
     def _customer_count(self):
-        orders = self._format_orders(self._orders)
+        orders = self._format_orders(self.orders)
         customer_count = orders.groupby("created_at")["customer_id"].nunique()
         customer_count.name = "customers"
         
