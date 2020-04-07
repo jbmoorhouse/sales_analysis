@@ -7,11 +7,23 @@ from sales_analysis.data_pipeline._pipeline import SalesPipeline
 from sales_analysis.data_pipeline import BASEPATH
 
 # --------------------------------------------------------------------------
-# Types and constants
+# Load and check valid data
 
 FILEPATH = os.path.join(BASEPATH, "data")
-DATA_FILES = [f for f in os.listdir(FILEPATH) if f.endswith('.csv')]
-DATA = {f : pd.read_csv(os.path.join(FILEPATH, f)) for f in DATA_FILES}
+DATA_FILES = [
+    'commissions.csv', 
+    'orders.csv', 
+    'order_lines.csv', 
+    'products.csv', 
+    'product_promotions.csv', 
+    'promotions.csv'
+]
+
+try: 
+    DATA = {f : pd.read_csv(os.path.join(FILEPATH, f)) for f in DATA_FILES}
+except FileNotFoundError as inst:
+    print(type(inst))
+    print(inst.args)
 
 # --------------------------------------------------------------------------
 # Web application
@@ -19,7 +31,7 @@ DATA = {f : pd.read_csv(os.path.join(FILEPATH, f)) for f in DATA_FILES}
 app = Flask(__name__)
 
 @app.route('/<selected_date>', methods=['GET'])
-def my_view(selected_date):
+def my_view(selected_date, daily_data):
     selected_date = datetime.strptime(selected_date, "%Y-%m-%d").date()
 
     sales = SalesPipeline(**DATA)
