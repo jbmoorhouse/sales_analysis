@@ -10,7 +10,8 @@ from sales_analysis.data_pipeline import BASEPATH
 # Load and check valid data
 
 FILEPATH = os.path.join(BASEPATH, "data")
-DATA_FILES = [
+DATA_FILES = [f for f in os.listdir(FILEPATH) if f.endswith('.csv')]
+REQUIRED_FILES = [
     'commissions.csv', 
     'orders.csv', 
     'order_lines.csv', 
@@ -19,30 +20,28 @@ DATA_FILES = [
     'promotions.csv'
 ]
 
-try: 
-    DATA = {f : pd.read_csv(os.path.join(FILEPATH, f)) for f in DATA_FILES}
-except FileNotFoundError as inst:
-    print(type(inst))
-    print(inst.args)
+for file in REQUIRED_FILES:
+    if os.path.basename(file) not in DATA_FILES:
+        raise FileNotFoundError(f"{os.path.basename(file)} was not found")
+
+DATA = {f : pd.read_csv(os.path.join(FILEPATH, f)) for f in DATA_FILES}
+
 
 # --------------------------------------------------------------------------
 # Web application
 
-app = Flask(__name__)
+sales_app = Flask('sales_analysis')
 
-@app.route('/<selected_date>', methods=['GET'])
-def my_view(selected_date, daily_data):
-    selected_date = datetime.strptime(selected_date, "%Y-%m-%d").date()
+@sales_app.route('/<selected_date>', methods=['GET'])
+def my_view(selected_date):
+    date = datetime.strptime(selected_date, "%Y-%m-%d").date()
 
     sales = SalesPipeline(**DATA)
     sales_summary = sales.summary()
 
     try:
-        daily_data = sales_summary.loc[selected_date]
+        daily_data = sales_summary.loc[date]
         return daily_data.to_dict()
     except (KeyError):
-        return f"""No data for {selected_date}. Please try 
+        return f"""No data for {date}. Please try 
         another date, such as 2019-08-01"""
-
-if __name__ == '__main__':
-    app.run(debug=True)
