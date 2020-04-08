@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 def setup_package():
     setup(
         name='sales-analysis',
-        version='0.1',
+        version='0.2',
         author='Joseph Moorhouse',
         license=license,
         description='A sales analysis package for an imaginary e-shop',
