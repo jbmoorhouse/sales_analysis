@@ -1,6 +1,6 @@
-include sales_analysis/data_pipeline/data/orders.csv
-include sales_analysis/data_pipeline/data/order_lines.csv
-include sales_analysis/data_pipeline/data/commissions.csv
-include sales_analysis/data_pipeline/data/product_promotions.csv
-include sales_analysis/data_pipeline/data/products.csv
-include sales_analysis/data_pipeline/data/promotions.csv
+include MANIFEST.in
+include LICENSE
+include README.md
+include setup.py
+
+include sales_analysis/data_pipeline/data/*.csv
