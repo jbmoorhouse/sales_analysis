@@ -102,7 +102,7 @@ class SalesPipeline:
         return average_daily_order
     
     def _mean_discount_rate(self):
-        "Method to calculate the average discount rate per day"
+        "Method to calculate the average discount rate offered per day"
 
         average_discount_rate = (self.merged_order_data
                 .groupby("created_at")["discount_rate"].mean())
@@ -119,7 +119,7 @@ class SalesPipeline:
         Returns
         -------
         summary: pd.DataFrame
-            Summary of the total number of customer, total discount offered,
+            Summary of the total number of customers, total discount offered,
             total number of items sold, average order amount and the average 
             discount rate offered each day
         """
