@@ -52,4 +52,4 @@ def my_view(selected_date):
         return daily_data.to_dict()
     except (KeyError):
         return f"""No data for {date}. Please try 
-        another date, such as 2019-08-01"
+        another date, such as 2019-08-01"""
