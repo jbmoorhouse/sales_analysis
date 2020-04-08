@@ -26,7 +26,6 @@ def test_root(client):
                      "items":2699.0,
                      "order_total_avg":1184520.138455093,
                      "total_discount_amount":18164159.9892837}),
-     ("2019-900-01", None)
     ]
 )
 def test_dates(client, date, solution):
@@ -34,7 +33,15 @@ def test_dates(client, date, solution):
     assert response.get_json() == solution
 
 @pytest.mark.parametrize(
-    "date", [("019-08-01"), ("2019-090-29"), ("2019-09-010")])
+    "date", [("019-08-01"), ("2019-090-29"), ("2019-09-010"), ("a")])
 def test_bad_dates(client, date):
     response = client.get(f"/{date}")
-    assert response.status_code == 500
+    assert str(response.get_data(), "utf-8") == (
+        "Invalid format. Please follow %Y-%m-%d pattern")
+
+@pytest.mark.parametrize(
+    "date", [("1900-08-01"), ("2100-09-01")])
+def test_missing_date(client, date):
+    response = client.get(f"/{date}")
+    assert str(response.get_data(), "utf-8") == (
+        f"No data for {date}. Please try another date, such as 2019-08-01")
