@@ -1,3 +1,12 @@
+"""
+This module contains the web application to visualise the summary data
+from the data pipeline
+"""
+
+# Authors: Joseph Moorhouse 
+#
+# License: BSD 3 clause
+
 from flask import Flask
 from datetime import datetime
 import os
