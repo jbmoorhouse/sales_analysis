@@ -16,9 +16,10 @@ def setup_package():
         long_description=long_description,
         packages=find_packages(include=["sales_analysis", "sales_analysis.*"]),
         install_requires=[
-            "flask >= 1.1.1",
+            "flask>=1.1.1",
             "pytest",
-            "pandas >= 1.0.0" 
+            "pandas>=1.0.0",
+            "pytest-flask>=1.0.0"
         ],
     )
 
