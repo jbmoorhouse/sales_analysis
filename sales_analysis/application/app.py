@@ -38,11 +38,14 @@ DATA = {f : pd.read_csv(os.path.join(FILEPATH, f)) for f in DATA_FILES}
 # --------------------------------------------------------------------------
 # Web application
 
-sales_app = Flask('sales_analysis')
+sales_app = Flask("sales_analysis")
 
 @sales_app.route('/<selected_date>', methods=['GET'])
 def my_view(selected_date):
-    date = datetime.strptime(selected_date, "%Y-%m-%d").date()
+    try:
+        date = datetime.strptime(selected_date, "%Y-%m-%d").date()
+    except ValueError:
+        return "Invalid format. Please follow %Y-%m-%d pattern"
 
     sales = SalesPipeline(**DATA)
     sales_summary = sales.summary()
@@ -51,5 +54,8 @@ def my_view(selected_date):
         daily_data = sales_summary.loc[date]
         return daily_data.to_dict()
     except (KeyError):
-        return f"""No data for {date}. Please try 
-        another date, such as 2019-08-01"""
+        return f"No data for {date}. Please try another date, " \
+                "such as 2019-08-01"""
+
+if __name__ == "__main__":
+    sales_app.run(debug=False)
