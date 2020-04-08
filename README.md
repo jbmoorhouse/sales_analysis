@@ -24,7 +24,7 @@ BSD 3
 
 ## How to run the app
 
-After successfully installing `sales_analysis`. The app may be run wihtout any modification to `sales_analysis/data_pipeline/data`. However, this will execute the sample data provided. In order to change the default behaviour, the data in `sales_analysis/data_pipeline/data` must be replaced with new data. **Note: It is imperative that this folder contains the data formatted in the same way as is currently provided**. 
+After successfully installing `sales_analysis`. The app may be run without any modification to `sales_analysis/data_pipeline/data`. However, this will execute the sample data provided. In order to change the default behaviour, the data in `sales_analysis/data_pipeline/data` must be replaced with new data. **Note: It is imperative that this folder contains data formatted in the same way as provided**. 
 
 Once the data has been imported, then follow the steps below.
 
@@ -69,7 +69,7 @@ The requested URL was not found on the server. If you entered the URL manually p
  "total_discount_amount":20061245.64408109}
 ```
 
-If incorrectly formatted date is passed, the server will raise an error. For example, if `2019-08` is passed, the following error is raised.
+If an incorrectly formatted date is passed, the server will raise an error. For example, if `2019-08` is passed, the following error is raised.
 
 ```
 ValueError: time data '2019-08' does not match format '%Y-%m-%d'
