@@ -39,7 +39,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 2. Then enter the following
 ```
 >>> from sales_analysis import sales_app
->>> app.run()
+>>> sales_app.run()
 ```
 
 This will output the following.
