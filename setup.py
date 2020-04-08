@@ -28,4 +28,4 @@ def setup_package():
     )
 
 if __name__ == "__main__": 
-    setup_package()co
+    setup_package()
