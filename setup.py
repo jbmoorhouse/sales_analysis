@@ -16,7 +16,7 @@ def setup_package():
         url="https://github.com/jbmoorhouse/sales_analysis",
         install_requires=[
             "flask>=1.1.1",
-            "pytest",
+            "pytest>=5.2",
             "pandas>=1.0.0",
             "pytest-flask>=1.0.0"
         ],
@@ -28,4 +28,4 @@ def setup_package():
     )
 
 if __name__ == "__main__": 
-    setup_package()
+    setup_package()co
