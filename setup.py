@@ -13,6 +13,7 @@ def setup_package():
         long_description_content_type="text/markdown",
         long_description=long_description,
         packages=find_packages(include=["sales_analysis", "sales_analysis.*"]),
+        include_package_data = True,
         url="https://github.com/jbmoorhouse/sales_analysis",
         install_requires=[
             "flask>=1.1.1",
